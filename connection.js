@@ -4,7 +4,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const uri = process.env.MONGODB_URI;
-const dbName="sample_restaurants"
+
+//DB CONNECTION QUERY
 
 module.exports = {
   CONNECTDB: async () => {
@@ -12,13 +13,11 @@ module.exports = {
       await mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        dbName:"sample_restaurants"
       });
       console.log("Connected to DB");
     } catch (error) {
       console.log("Error in connecting to DB", err);
     }
-  },
-  getDb: () => {
-    mongoose.connection.useDb(dbName);
-  },
+  }
 };
