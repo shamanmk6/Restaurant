@@ -6,6 +6,7 @@ const getRestaurantWithinRadius = async (req, res) => {
   try {
     const restaurants = await Restaurant.aggregate([
       {
+        //To find the restaurants within radius using geospatial data
         $geoNear: {
           near: {
             type: "Point",
@@ -48,6 +49,7 @@ const getRestaurantWithinRange = async (req, res) => {
   try {
     const restaurants = await Restaurant.aggregate([
       {
+        //To find the restaurants within the min and max radius using geospatial data
         $geoNear: {
           near: {
             type: "Point",
@@ -77,7 +79,7 @@ const getRestaurantWithinRange = async (req, res) => {
     ]);
 
     if (restaurants.length === 0) {
-      res.send("No restaurant with in this radiusrange is found");
+      return res.status(500).send("No restaurant with in this radiusrange is found");
     }
     res.json(restaurants);
   } catch (err) {

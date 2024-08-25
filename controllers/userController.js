@@ -27,11 +27,9 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   try {
     const user = await User.findOne({ email: email });
-    console.log("userIs", user);
     if (!user) {
       res.status(400).send({ message: "usernot found" });
     }
@@ -41,7 +39,7 @@ const loginUser = async (req, res) => {
     }
     const payLoad = { userId: user._id };
     const token = jwt.sign(payLoad, secret, { expiresIn: 3600 });
-    res.json({ token });
+    res.json({ message:"Login Succesfull",token:token });
   } catch (error) {
     res.status(500).send({ err: error.message });
   }
