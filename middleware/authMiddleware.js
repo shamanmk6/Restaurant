@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
         console.error("Token verification error:", err)
         return res.status(401).send({ error: "Token not valid" });
       } else {
-        req.user = decoded;
+        req.user = decoded
         next();
       }
     });
