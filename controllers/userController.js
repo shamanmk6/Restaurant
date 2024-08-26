@@ -12,18 +12,24 @@ console.log("secret", secret);
 const registerUser = async (req, res) => {
   try {
     console.log("inside registeruser");
-    const { email, password } = req.body;
+    const { email, password, userName } = req.body;
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       email: email,
       password: hashedPassword,
+      userName: userName || `user_${Date.now()}`,
     });
     await newUser.save();
-    res.send({ message: "inserteduser" });
+    res.send({ message: "User registered successfully" });
   } catch (error) {
-    res.send({ error: "not inserted" });
+    if (error.code === 11000) {
+      return res.status(400).send({ error: "User with this userName already exists" });
+    }
+    res.status(500).send({ error: "User registration failed", details: error });
   }
 };
+
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
