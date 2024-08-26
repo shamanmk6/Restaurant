@@ -6,7 +6,8 @@ const verifyToken=require('../middleware/authMiddleware')
 
 router.post('/register',registerUser)
 router.post('/login',loginUser)
-router.get('/home',verifyToken,(req,res)=>{
+router.get('/home',(req,res)=>{
     res.send({message:"homepage"})
 })
+
 module.exports=router;
