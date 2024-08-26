@@ -14,7 +14,9 @@ connect.CONNECTDB();
 
 app.use("/api/users", userRoutes);
 app.use("/api/restaurants", restaurantRoutes);
-
+app.get('/',(req,res)=>{
+  res.send("Use Postman to check API's")
+})
 //PORT Creation
 app.listen(PORT, () => {
   console.log("server started");
